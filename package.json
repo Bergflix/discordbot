@@ -11,17 +11,14 @@
     "sqlite": "3.0.6",
     "sqlite3": "^4.2.0"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "node $npm_package_main",
     "test": "nodemon $npm_package_main"
   },
   "author": "lyxt",
-  "contributors": [
-    {
+  "contributors": [{
       "name": "Maxi"
-    }
-  ],
+    }],
   "license": "ISC",
   "repository": {
     "type": "git",
