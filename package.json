@@ -16,9 +16,11 @@
     "test": "nodemon $npm_package_main"
   },
   "author": "lyxt",
-  "contributors": [{
+  "contributors": [
+    {
       "name": "Maxi"
-    }],
+    }
+  ],
   "license": "ISC",
   "repository": {
     "type": "git",
