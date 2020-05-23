@@ -15,6 +15,7 @@ class ChannelHandler {
         this._sendEmbed(new MessageEmbed()
             .setColor("#cc0033")
             .setTitle(title)
+            .setAuthor("Bergflix")
             .setThumbnail(config.icons.logo)
             .setDescription(message)
         ).catch(e => {
