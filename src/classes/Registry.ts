@@ -1,5 +1,7 @@
 import CommandHandler from "./CommandHandler";
 import Help from "./commands/Help";
+import Clear from "./commands/Clear";
+import Prefix from "./commands/Prefix";
 
 class Registry {
     public static registerAll(){
@@ -7,7 +9,10 @@ class Registry {
     }
 
     public static registerCommands(){
-        CommandHandler.Instance.addCommand(new Help());
+        let cmdHandler = CommandHandler.Instance;
+        cmdHandler.addCommand(new Help());
+        cmdHandler.addCommand(new Clear());
+        cmdHandler.addCommand(new Prefix());
     }
 }
 

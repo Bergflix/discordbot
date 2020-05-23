@@ -10,7 +10,7 @@ class Help extends Command {
     constructor() {
         super("help", {
             description: "Erhalte helfende Informationen zum Bergflix-Bot",
-            format: "<Befehl>",
+            format: "[Befehl]",
             group: "Utility",
             unknown: true,
             examples: [
