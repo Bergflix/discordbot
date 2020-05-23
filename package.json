@@ -1,29 +1,25 @@
 {
   "name": "discordbot",
-  "version": "1.0.0",
+  "version": "1.9.0",
   "description": "Discord bot for Bergflix server",
-  "main": "index.js",
+  "main": "dist/index.js",
   "dependencies": {
-    "@discordjs/uws": "10.149.0",
-    "common-tags": "^1.8.0",
-    "discord.js": "11.6.4",
-    "discord.js-commando": "^0.10.0",
-    "sqlite": "3.0.6",
-    "sqlite3": "^4.2.0"
+    "discord.js": "^12.2.0",
+    "pouchdb": "^7.2.1",
+    "pouchdb-find": "^7.2.1"
   },
   "scripts": {
     "start": "node $npm_package_main",
     "test": "nodemon $npm_package_main"
   },
-  "author": "lyxt",
-  "contributors": [
-    {
-      "name": "Maxi"
-    }
-  ],
+  "author": "Maxi",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Bergflix/discordbot.git"
+    "url": "https://github.com/Bergflix/discordBOT.git"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.5",
+    "@types/pouchdb": "^6.4.0"
   }
 }
