@@ -1,7 +1,7 @@
 import DB from "./classes/DB";
 import ConfigHandler from "./classes/ConfigHandler";
 import Log from "./classes/Log";
-import BOT from "./classes/Bot";
+import BOT from "./classes/BOT";
 import CommandHandler from "./classes/CommandHandler";
 import Registry from "./classes/Registry";
 
