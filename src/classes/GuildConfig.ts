@@ -16,6 +16,9 @@ class GuildConfig {
     public get Prefix(){
         return this._prefix;
     }
+    public setPrefix(prefix: string){
+        this._prefix = prefix;
+    }
 }
 
 export default GuildConfig;
