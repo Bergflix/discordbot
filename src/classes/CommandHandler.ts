@@ -3,6 +3,7 @@ import {Collection, Message} from "discord.js";
 import ConfigHandler from "./ConfigHandler";
 import Command from "./Command";
 import ChannelHandler from "./ChannelHandler";
+import GuildConfig from "./GuildConfig";
 
 class CommandHandler {
     private static _instance: CommandHandler;
@@ -10,26 +11,42 @@ class CommandHandler {
 
     constructor() {
         this._commands = new Collection<string, Command>();
-
         BOT.Client.on("message", message => this._commandExec(message))
     }
 
     private _commandExec(message: Message){
         let msg = message.content;
         let user = message.author;
+        if(user.bot) return;
+
         let guild = message.guild;
-        let cnlHandler = new ChannelHandler(message.channel);
+        let channel = message.channel;
+        let cnlHandler = new ChannelHandler(channel);
 
-        let guildConfig = ConfigHandler.Instance.getConfig(guild.id);
-        let prefix = guildConfig.Prefix;
-
-        if(user.bot || !msg.startsWith(prefix)) return;
+        let guildConfig: GuildConfig;
+        let prefix = "!";
+        if(guild){
+            guildConfig = ConfigHandler.Instance.getConfig(guild.id);
+            prefix = guildConfig.Prefix;
+        }
 
         let args = msg.split(" ");
-        let cmd = args.splice(0, 1)[0].replace(prefix, "");
+        let cmd = args.splice(0, 1)[0];
 
-        let command = this._commands.get(cmd);
-        if(command){
+        if(msg.startsWith(prefix)){
+            cmd = cmd.replace(prefix, "");
+        }else if(msg.startsWith(`<@!${BOT.Client.user.id}>`)){
+            cmd = cmd.replace(`<@!${BOT.Client.user.id}>`, "");
+        }else if(channel.type !== "dm"){
+            return;
+        }
+
+        while(cmd === ""){
+            cmd = args.splice(0, 1)[0];
+        }
+
+        let command: Command;
+        if((command = this._commands.get(cmd))){
             command.exec(user, args, cnlHandler).catch(e => console.error("Error Command Execution", e));
         }else{
             this._commands.each(command => {
@@ -45,6 +62,9 @@ class CommandHandler {
     public get Commands(){
         return this._commands.array();
     }
+    public Command(command: string){
+        return this._commands.get(command);
+    }
 
 
     public static init(){
@@ -55,6 +75,9 @@ class CommandHandler {
     }
     public static get Commands(){
         return this.Instance.Commands;
+    }
+    public static Command(command: string){
+        return this.Instance.Command(command);
     }
 }
 

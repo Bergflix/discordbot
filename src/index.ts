@@ -9,8 +9,8 @@ import Registry from "./classes/Registry";
 DB.init();
 
 // Init bot client
-BOT.init("online");
-BOT.Client.login(process.env.TOKEN).then(() => {
+global["BOT"] = BOT;
+BOT.init("online").login(process.env.TOKEN).then(() => {
 
     // Load singletons and handlers
     Log.init().then(() => Log.sendInfo("Der Bergflix Bot wurde gestartet", "Neustart"));

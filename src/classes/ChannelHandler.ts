@@ -15,12 +15,15 @@ class ChannelHandler {
         this._sendEmbed(new MessageEmbed()
             .setColor("#cc0033")
             .setTitle(title)
-            .setAuthor("Bergflix")
             .setThumbnail(config.icons.logo)
             .setDescription(message)
         ).catch(e => {
             console.log("Error [Send Message]", e)
         });
+    }
+
+    public get Channel(){
+        return this._channel;
     }
 }
 
