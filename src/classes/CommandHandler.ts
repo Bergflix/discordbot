@@ -1,4 +1,4 @@
-import BOT from "./Bot";
+import BOT from "./BOT";
 import {Collection, Message} from "discord.js";
 import ConfigHandler from "./ConfigHandler";
 import Command from "./Command";

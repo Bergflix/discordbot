@@ -1,4 +1,4 @@
-import BOT from "./Bot";
+import BOT from "./BOT";
 import {MessageReaction, User} from "discord.js";
 import Log from "./Log";
 

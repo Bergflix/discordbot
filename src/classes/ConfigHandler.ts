@@ -1,7 +1,7 @@
 import {Collection} from "discord.js";
 import DB from "./DB";
 import GuildConfig from "./GuildConfig";
-import BOT from "./Bot";
+import BOT from "./BOT";
 
 class ConfigHandler {
     private static _instance: ConfigHandler;

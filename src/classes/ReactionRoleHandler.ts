@@ -1,7 +1,7 @@
 import {Collection} from "discord.js";
 import ReactionRole from "./ReactionRole";
 import DB from "./DB";
-import BOT from "./Bot";
+import BOT from "./BOT";
 
 class ReactionRoleHandler {
     private readonly _guild: string;

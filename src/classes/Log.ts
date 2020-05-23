@@ -1,5 +1,5 @@
 import * as config from "../config.json";
-import BOT from "./Bot";
+import BOT from "./BOT";
 import ChannelHandler from "./ChannelHandler";
 
 class Log {
