@@ -22,6 +22,9 @@ class ChannelHandler {
             console.log("Error [Send Message]", e)
         });
     }
+    public sendError(message: string){
+      this.sendInfo(message, "Fataler Fehler");
+    }
 
     public get Channel(){
         return this._channel;

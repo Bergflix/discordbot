@@ -23,6 +23,9 @@ class Log {
     public sendInfo(message: string, title = "Info"){
         this._channelHandler.sendInfo(message, title);
     }
+    public sendError(message: string){
+      thid._channelHandler.sendError(message);
+    }
 
 
     public static init(){
@@ -42,6 +45,9 @@ class Log {
     }
     public static sendInfo(message: string, title = "Info"){
         this.Instance.sendInfo(message, title);
+    }
+    public static sendError(message: string){
+      this.Instance.sendError(message);
     }
 }
 
