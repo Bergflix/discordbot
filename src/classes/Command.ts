@@ -1,16 +1,15 @@
-import {Client, User} from "discord.js";
-import {CommandArgumentTypes, CommandOptions} from "../types";
-import ChannelHandler from "./ChannelHandler";
+import {PermissionResolvable} from "discord.js";
+import {CommandData, CommandOptions} from "../types";
 
 class Command {
-    private _name: string;
-    private _description: string;
-    private _format: string;
-    private _group: string;
-    private _unknown: boolean;
-    private _permission: string;
-    private _guildOnly: boolean;
-    private _examples: Array<string>
+    private readonly _name: string;
+    private readonly _description: string;
+    private readonly _format: string;
+    private readonly _group: string;
+    private readonly _unknown: boolean;
+    private readonly _permission: PermissionResolvable;
+    private readonly _guildOnly: boolean;
+    private readonly _examples: Array<string>
 
     constructor(name: string, options: CommandOptions) {
         this._name = name;
@@ -18,41 +17,37 @@ class Command {
         this._format = options.format || "";
         this._group = options.group || "Basics";
         this._unknown = options.unknown || false;
-        this._permission = options.permission || "";
+        this._permission = options.permission || null;
         this._guildOnly = options.guildOnly || false;
         this._examples = options.examples || [];
     }
 
-    public get Name(){
+    public get Name() {
         return this._name;
     }
-    public get Description(){
+    public get Description() {
         return this._description;
     }
-    public get Group(){
+    public get Group() {
         return this._group;
     }
-    public get Unknown(){
+    public get Unknown() {
         return this._unknown;
     }
-    public get Permission(){
+    public get Permission() {
         return this._permission;
     }
-    public get GuildOnly(){
+    public get GuildOnly() {
         return this._guildOnly;
     }
-    public get Format(){
+    public get Format() {
         return this._format;
     }
-    public get Examples(){
+    public get Examples() {
         return this._examples;
     }
 
-    public hasPermission(user: User){
-        return true;
-    }
-
-    public async exec(user: User, args: Array<CommandArgumentTypes>, channelHandler: ChannelHandler){
+    public async exec(data: CommandData) {
         throw new Error("Method not implemented.");
     };
 }

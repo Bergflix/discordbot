@@ -1,9 +1,7 @@
 import Command from "../Command";
-import {User} from "discord.js";
-import {CommandArgumentTypes} from "../../types";
+import {CommandData} from "../../types";
 import CommandHandler from "../CommandHandler";
 import * as config from "../../config.json";
-import ChannelHandler from "../ChannelHandler";
 import ConfigHandler from "../ConfigHandler";
 
 class Help extends Command {
@@ -19,17 +17,19 @@ class Help extends Command {
         });
     }
 
-    public async exec(user: User, args: Array<CommandArgumentTypes>, channelHandler: ChannelHandler) {
+    public async exec(data: CommandData) {
         let msg = "";
         let tmp = {};
 
-        if (args.length === 0 || args[0] === ""){
+        if (data.args.length === 0 || data.args[0] === ""){
             CommandHandler.Commands.forEach(cmd => {
-                if (!cmd.hasPermission(user)) return;
+                if (data.member && !data.member.hasPermission(cmd.Permission)) return;
+
                 let group = cmd.Group;
                 if (!tmp[group]) tmp[group] = {};
                 tmp[group][cmd.Name] = cmd.Description;
             });
+
             for (let group in tmp) {
                 if (!tmp.hasOwnProperty(group)) continue;
                 msg += `__${group}__\n`;
@@ -40,13 +40,10 @@ class Help extends Command {
                 }
                 msg += "\n";
             }
-        }else{
-            let command = CommandHandler.Command(args[0].toString());
-            let prefix = "!";
 
-            // @ts-ignore
-            let guild = channelHandler.Channel.guild;
-            if(guild) prefix = ConfigHandler.Config(guild.id).Prefix;
+        }else{
+            let command = CommandHandler.Command(data.args[0].toString());
+            let prefix = data.guild ? ConfigHandler.Config(data.guild.id).Prefix : "!";
 
             msg += `__**${command.Name}**__ - ${command.Description}${command.GuildOnly ? ' (Nur auf einem Server verwendbar)' : ''}\n\n`;
             let format = command.Name + (command.Format ? ` ${command.Format}` : '');
@@ -60,7 +57,7 @@ class Help extends Command {
         msg += `Erhalte mit \`help <befehl>\` noch mehr Informationen
                 Bei weiteren Fragen kannst du gerne in <#${config.helpChannel}> nachfragen`;
 
-        channelHandler.sendInfo(msg, "Hilfe");
+        data.channel.handler.sendInfo(msg, "Hilfe");
     }
 }
 

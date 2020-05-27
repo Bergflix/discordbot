@@ -1,10 +1,11 @@
-import {DMChannel, MessageEmbed, NewsChannel, TextChannel} from "discord.js";
+import {MessageEmbed} from "discord.js";
 import * as config from "../config.json";
+import {CommandChannelTypes} from "../types";
 
 class ChannelHandler {
-    private readonly _channel: TextChannel | DMChannel | NewsChannel;
+    private readonly _channel: CommandChannelTypes;
 
-    constructor(channel: TextChannel | DMChannel | NewsChannel) {
+    constructor(channel: CommandChannelTypes) {
         this._channel = channel;
     }
 

@@ -1,7 +1,5 @@
 import Command from "../Command";
-import {User} from "discord.js";
-import {CommandArgumentTypes} from "../../types";
-import ChannelHandler from "../ChannelHandler";
+import {CommandData} from "../../types";
 import ConfigHandler from "../ConfigHandler";
 
 class Prefix extends Command {
@@ -13,25 +11,18 @@ class Prefix extends Command {
             examples: [
                 "prefix !"
             ],
-            permission: "",
+            permission: "ADMINISTRATOR",
             format: "<Prefix>"
         });
     }
 
-    async exec(user: User, args: Array<CommandArgumentTypes>, channelHandler: ChannelHandler): Promise<void> {
-        if(!this.hasPermission(user) || args.length === 0 || args[0] === "") return;
+    async exec(data: CommandData): Promise<void> {
+        if(!data.guild || data.args.length === 0 || data.args[0] === "") return;
 
-        // hasPermission muss erst gehen
-        return;
+        let config = ConfigHandler.Config(data.guild.id);
+        config.setPrefix(data.args[0].toString());
 
-        // @ts-ignore
-        let guild = channelHandler.Channel.guild;
-        if(!guild) return;
-
-        let config = ConfigHandler.Config(guild.id);
-        config.setPrefix(args[0].toString());
-
-        channelHandler.sendInfo(`Der Befehl-Prefix wurde zu ${config.Prefix} geändert`);
+        data.channel.handler.sendInfo(`Der Befehl-Prefix wurde zu ${config.Prefix} geändert`);
     }
 }
 
