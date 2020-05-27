@@ -24,7 +24,7 @@ class Log {
         this._channelHandler.sendInfo(message, title);
     }
     public sendError(message: string){
-      thid._channelHandler.sendError(message);
+      this._channelHandler.sendError(message);
     }
 
 
