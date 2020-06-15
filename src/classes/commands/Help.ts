@@ -23,7 +23,7 @@ class Help extends Command {
 
         if (data.args.length === 0 || data.args[0] === ""){
             CommandHandler.Commands.forEach(cmd => {
-                if (data.member && !data.member.hasPermission(cmd.Permission)) return;
+                if (data.member && cmd.Permission && !data.member.hasPermission(cmd.Permission)) return;
 
                 let group = cmd.Group;
                 if (!tmp[group]) tmp[group] = {};
