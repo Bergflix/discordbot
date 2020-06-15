@@ -10,7 +10,7 @@ class Help extends Command {
             description: "Erhalte helfende Informationen zum Bergflix-Bot",
             format: "[Befehl]",
             group: "Utility",
-            unknown: true,
+            unknown: false,
             examples: [
                 "help prefix"
             ]
