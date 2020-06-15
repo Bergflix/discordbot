@@ -54,14 +54,14 @@ class CommandHandler {
 
         // Search and execute command
         if ((command = this._commands.get(cmd))) {
-            if (member && !member.hasPermission(command.Permission)) return;
+            if (member && command.Permission && !member.hasPermission(command.Permission)) return;
             command.exec(data).catch(e => console.error("Error Command Execution", e));
 
         // Else: Unknown Command
         } else {
             this._commands.each(command => {
                 if(!command.Unknown) return;
-                if(member && !member.hasPermission(command.Permission)) return;
+                if(member && command.Permission && !member.hasPermission(command.Permission)) return;
                 command.exec(data).catch(e => console.error("Error Command Execution", e));
             });
         }
