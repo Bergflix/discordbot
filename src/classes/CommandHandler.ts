@@ -57,7 +57,6 @@ class CommandHandler {
 
         // Else: Unknown Command
         } else {
-            console.log("unknown");
             this._commands.each(command => {
                 if(!command.unknown) return;
                 if(member && command.permission && !member.hasPermission(command.permission)) return;
