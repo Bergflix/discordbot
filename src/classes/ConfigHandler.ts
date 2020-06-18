@@ -4,16 +4,13 @@ import GuildConfig from "./GuildConfig";
 import BOT from "./BOT";
 
 class ConfigHandler {
-    private static _instance: ConfigHandler;
     private _guildConfigs: Collection<string, GuildConfig>;
 
     constructor() {
         this._guildConfigs = new Collection<string, GuildConfig>();
-
-        this._loadConfig();
     }
 
-    private _loadConfig(){
+    public init(){
         BOT.Client.guilds.cache.each(guild => {
             this.fetchConfig(guild.id);
         });
@@ -31,17 +28,6 @@ class ConfigHandler {
     public getConfig(guild: string){
         return this._guildConfigs.get(guild);
     }
-
-
-    public static init(){
-        this._instance = new this();
-    }
-    public static get Instance(){
-        return this._instance;
-    }
-    public static Config(guild: string){
-        return this.Instance.getConfig(guild);
-    }
 }
 
-export default ConfigHandler;
+export default new ConfigHandler();

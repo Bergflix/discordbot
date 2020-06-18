@@ -8,8 +8,8 @@ export type CommandChannelTypes = TextChannel | DMChannel | NewsChannel;
 export type CommandOptions = {
     description?: string;
     format?: string;
-    group?: string;
     unknown?: boolean;
+    hidden?: boolean;
     permission?: PermissionResolvable;
     guildOnly?: boolean;
     examples?: Array<string>

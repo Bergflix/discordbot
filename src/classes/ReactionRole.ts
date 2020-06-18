@@ -23,7 +23,7 @@ class ReactionRole {
         this._roles.forEach(role => {
             if (guildMember.roles.cache.has(role)) return;
             guildMember.roles.add(role).then(() => {
-                Log.Instance.sendInfo(`<@${user.id}> wurde die Rolle <@&${role}> gegeben`);
+                Log.sendInfo(`<@${user.id}> wurde die Rolle <@&${role}> gegeben`);
             }).catch(e => {
                 console.error("Failed to add role to user", role, user.tag, e);
             });
@@ -36,7 +36,7 @@ class ReactionRole {
         this._roles.forEach(role => {
             if (!guildMember.roles.cache.has(role)) return;
             guildMember.roles.remove(role).then(() => {
-                Log.Instance.sendInfo(`<@${user.id}> wurde die Rolle <@&${role}> entzogen`);
+                Log.sendInfo(`<@${user.id}> wurde die Rolle <@&${role}> entzogen`);
             }).catch(e => {
                 console.error("Failed to remove role from user", role, user.tag, e);
             });

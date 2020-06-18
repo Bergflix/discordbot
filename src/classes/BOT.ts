@@ -1,10 +1,13 @@
 import {Client, PresenceStatusData} from "discord.js";
 
 class BOT {
-    private static _instance: BOT;
-    private readonly _client: Client;
+    private _client: Client;
 
-    constructor(status: PresenceStatusData) {
+    constructor() {
+        this._client = null;
+    }
+
+    public init(status: PresenceStatusData){
         this._client = new Client({
             presence: {
                 status,
@@ -15,23 +18,12 @@ class BOT {
                 }
             }
         });
+        return this.Client;
     }
 
     public get Client(){
         return this._client;
     }
-
-    public static init(status: PresenceStatusData){
-        this._instance = new this(status);
-        return this._instance.Client;
-    }
-
-    public static get Instance(){
-        return this._instance;
-    }
-    public static get Client(){
-        return this.Instance.Client;
-    }
 }
 
-export default BOT;
+export default new BOT();

@@ -3,20 +3,14 @@ import ConfigHandler from "./classes/ConfigHandler";
 import Log from "./classes/Log";
 import BOT from "./classes/BOT";
 import CommandHandler from "./classes/CommandHandler";
-import Registry from "./classes/Registry";
-
-// Init db connection
-DB.init();
 
 // Init bot client
-global["BOT"] = BOT;
 BOT.init("online").login(process.env.TOKEN).then(() => {
 
     // Load singletons and handlers
-    Log.init().then(() => Log.sendInfo("Der Bergflix Bot wurde gestartet", "Neustart"));
+    Log.init().then(() => Log.sendInfo("Der Bergflix Bot wurde gestartet", "Neustart")).catch(console.error);
     ConfigHandler.init();
-    CommandHandler.init();
-    Registry.registerAll();
+    CommandHandler.init().then(() => console.log("commands loaded")).catch(console.error);
 
     console.log("Bot is ready");
 }).catch(err => {

@@ -5,7 +5,6 @@ class Clear extends Command {
     constructor() {
         super("clear", {
             description: "Leere den aktuellen Channel",
-            group: "Utility",
             guildOnly: true,
             permission: "MANAGE_CHANNELS"
         });
@@ -17,4 +16,4 @@ class Clear extends Command {
     }
 }
 
-export default Clear;
+export default new Clear();

@@ -5,14 +5,13 @@ import Command from "./Command";
 import ChannelHandler from "./ChannelHandler";
 import GuildConfig from "./GuildConfig";
 import {CommandData} from "../types";
+import * as fs from "fs";
 
 class CommandHandler {
-    private static _instance: CommandHandler;
     private _commands: Collection<string, Command>;
 
     constructor() {
         this._commands = new Collection<string, Command>();
-        BOT.Client.on("message", message => this._commandExec(message))
     }
 
     private _commandExec(message: Message) {
@@ -28,7 +27,7 @@ class CommandHandler {
         let prefix = "!";
         let member: GuildMember;
         if (guild) {
-            guildConfig = ConfigHandler.Instance.getConfig(guild.id);
+            guildConfig = ConfigHandler.getConfig(guild.id);
             prefix = guildConfig.Prefix;
             member = guild.member(user);
         }
@@ -51,45 +50,49 @@ class CommandHandler {
         // Bundle command data
         let data: CommandData = {user, args, channel: {cnl: channel, handler: cnlHandler}, guild, member};
         let command: Command;
-
         // Search and execute command
         if ((command = this._commands.get(cmd))) {
-            if (member && command.Permission && !member.hasPermission(command.Permission)) return;
+            if (member && command.permission && !member.hasPermission(command.permission)) return;
             command.exec(data).catch(e => console.error("Error Command Execution", e));
 
         // Else: Unknown Command
         } else {
+            console.log("unknown");
             this._commands.each(command => {
-                if(!command.Unknown) return;
-                if(member && command.Permission && !member.hasPermission(command.Permission)) return;
+                if(!command.unknown) return;
+                if(member && command.permission && !member.hasPermission(command.permission)) return;
                 command.exec(data).catch(e => console.error("Error Command Execution", e));
             });
         }
     }
 
+    public init(){
+        // Register event
+        BOT.Client.on("message", message => this._commandExec(message))
+        return new Promise((resolve, reject) => {
+            // Read command files
+            fs.readdirSync("./dist/classes/commands").forEach(file => {
+                // Ignore every file except for .js
+                if(!file.endsWith(".js")) return;
+                let cmdName = file.replace(".js", "");
+                // dynamic Import all command objects
+                import("./commands/"+cmdName).then(cmd => {
+                    this.addCommand(cmd.default);
+                }).catch(reject);
+            });
+            resolve();
+        });
+    }
+
     public addCommand(command: any) {
-        this._commands.set(command.Name, command);
+        this._commands.set(command.name, command);
     }
     public get Commands() {
         return this._commands.array();
     }
-    public Command(command: string) {
+    public getCommand(command: string) {
         return this._commands.get(command);
-    }
-
-
-    public static init() {
-        this._instance = new CommandHandler();
-    }
-    public static get Instance() {
-        return this._instance;
-    }
-    public static get Commands() {
-        return this.Instance.Commands;
-    }
-    public static Command(command: string) {
-        return this.Instance.Command(command);
     }
 }
 
-export default CommandHandler;
+export default new CommandHandler();

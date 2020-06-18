@@ -7,7 +7,6 @@ class Prefix extends Command {
         super("prefix", {
             description: "Setze den Befehl-Prefix um",
             guildOnly: true,
-            group: "Utility",
             examples: [
                 "prefix !"
             ],
@@ -19,11 +18,11 @@ class Prefix extends Command {
     async exec(data: CommandData): Promise<void> {
         if(!data.guild || data.args.length === 0 || data.args[0] === "") return;
 
-        let config = ConfigHandler.Config(data.guild.id);
+        let config = ConfigHandler.getConfig(data.guild.id);
         config.setPrefix(data.args[0].toString());
 
         data.channel.handler.sendInfo(`Der Befehl-Prefix wurde zu ${config.Prefix} geändert`);
     }
 }
 
-export default Prefix;
+export default new Prefix();
