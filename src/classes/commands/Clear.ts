@@ -1,5 +1,4 @@
 import Command from "../Command";
-import {CommandData} from "../../types";
 
 class Clear extends Command {
     constructor() {
@@ -10,7 +9,7 @@ class Clear extends Command {
         });
     }
 
-    async exec(data: CommandData): Promise<void> {
+    async exec(data): Promise<void> {
         await data.channel.handler.Channel.bulkDelete(100);
         data.channel.handler.sendInfo(`Dieser Channel wurde von <@${data.user.id}> geleert.`, "Channel geleert");
     }

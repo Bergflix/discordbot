@@ -1,5 +1,4 @@
 import Command from "../Command";
-import {CommandData} from "../../types";
 import CommandHandler from "../CommandHandler";
 import * as config from "../../config.json";
 import ConfigHandler from "../ConfigHandler";
@@ -17,7 +16,7 @@ class Help extends Command {
         });
     }
 
-    public async exec(data: CommandData) {
+    public async exec(data) {
         let msg = "";
         let tmp = {};
         let prefix = data.guild ? ConfigHandler.getConfig(data.guild.id).Prefix : "!";

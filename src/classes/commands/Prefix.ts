@@ -1,5 +1,4 @@
 import Command from "../Command";
-import {CommandData} from "../../types";
 import ConfigHandler from "../ConfigHandler";
 
 class Prefix extends Command {
@@ -15,7 +14,7 @@ class Prefix extends Command {
         });
     }
 
-    async exec(data: CommandData): Promise<void> {
+    async exec(data): Promise<void> {
         if(!data.guild || data.args.length === 0 || data.args[0] === "") return;
 
         let config = ConfigHandler.getConfig(data.guild.id);
