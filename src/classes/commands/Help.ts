@@ -33,8 +33,7 @@ class Help extends Command {
                 msg += `**${prefix + cmd}** - *${tmp[cmd]}*\n`
             }
 
-            msg += `\nErhalte mit \`${prefix}help <befehl>\` noch mehr Informationen
-                Bei weiteren Fragen kannst du gerne in <#${config.helpChannel}> nachfragen`;
+            msg += `\nErhalte mit \`${prefix}help <befehl>\` noch mehr Informationen\nBei weiteren Fragen kannst du gerne in <#${config.helpChannel}> nachfragen`;
 
         }else{
             let command = CommandHandler.getCommand(data.args[0].toString());
