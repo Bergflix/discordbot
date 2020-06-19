@@ -19,7 +19,7 @@ class Command {
         this.hidden = options.hidden || false;
         this.permission = options.permission || null;
         this.guildOnly = options.guildOnly || false;
-        this.examples = options.examples || [];
+        this.examples = options.examples || null;
     }
 
     public async exec(data: CommandData) {

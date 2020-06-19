@@ -6,7 +6,6 @@ class Unknown extends Command {
     constructor() {
         super("unknown", {
             description: "Platzhalterbefehl",
-            format: "[Befehl]",
             unknown: true,
             hidden: true
         });
