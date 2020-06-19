@@ -5,9 +5,10 @@ import ConfigHandler from "../ConfigHandler";
 class Unknown extends Command {
     constructor() {
         super("unknown", {
-            description: "Platzhalterbefehö",
+            description: "Platzhalterbefehl",
             format: "[Befehl]",
-            unknown: true
+            unknown: true,
+            hidden: true
         });
     }
 
