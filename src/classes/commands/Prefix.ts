@@ -15,12 +15,16 @@ class Prefix extends Command {
     }
 
     async exec(data): Promise<void> {
-        if(!data.guild || data.args.length === 0 || data.args[0] === "") return;
+        if(!data.guild) return;
+        if(data.args.length === 0 || data.args[0] === "") {
+            data.channel.handler.sendError("Der Prefix konnte **nicht verändert** werden. Bitte gebe einen Prefix mit an.");
+            return;
+        }
 
         let config = ConfigHandler.getConfig(data.guild.id);
         config.setPrefix(data.args[0].toString());
 
-        data.channel.handler.sendInfo(`Der Befehl-Prefix wurde zu ${config.Prefix} geändert`);
+        data.channel.handler.sendInfo(`Der Prefix wurde zu ${config.Prefix} geändert`);
     }
 }
 
