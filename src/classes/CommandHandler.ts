@@ -49,10 +49,7 @@ class CommandHandler {
         // Search and execute command
         if ((command = this._commands.get(cmd))) {
             if (data.member && command.permission && !data.member.hasPermission(command.permission)) return;
-            command.exec(data).then(() => {
-                !data.channel.handler.sentMessage && this._execUnknown(data);
-            }).catch(e => console.error("Error Command Execution", e));
-
+            command.exec(data).catch(e => console.error("Error Command Execution", e));
         // Else: Unknown Command
         } else this._execUnknown(data);
     }
