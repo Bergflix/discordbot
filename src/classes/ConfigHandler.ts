@@ -22,7 +22,7 @@ class ConfigHandler {
             if(!data.docs[0]) return;
             let conf = data.docs[0];
             this._guildConfigs.set(guild, new GuildConfig(guild, conf));
-        });
+        }).catch(e => console.error("Failed to load Settings", e));
     }
 
     public getConfig(guild: string){

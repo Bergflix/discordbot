@@ -3,8 +3,8 @@ import {MessageReaction, User} from "discord.js";
 import Log from "./Log";
 
 class ReactionRole {
-    private _message;
-    private _emoji;
+    private readonly _message;
+    private readonly _emoji;
     private _roles: Array<string>;
 
     constructor(message, emoji, roles: Array<string>) {
@@ -16,8 +16,8 @@ class ReactionRole {
         BOT.Client.on("messageReactionRemove", (reaction, user: User) => this._removeRoles(reaction, user));
     }
 
-    private _addRoles(reaction: MessageReaction, user: User){
-        if(!user || user.bot || !reaction.message.guild) return;
+    private _addRoles(reaction: MessageReaction, user: User) {
+        if(!this._checkEvent(reaction, user)) return;
         let guildMember = reaction.message.guild.member(user);
 
         this._roles.forEach(role => {
@@ -29,8 +29,8 @@ class ReactionRole {
             });
         });
     }
-    private _removeRoles(reaction: MessageReaction, user: User){
-        if(!user || user.bot || !reaction.message.guild) return;
+    private _removeRoles(reaction: MessageReaction, user: User) {
+        if(!this._checkEvent(reaction, user)) return;
         let guildMember = reaction.message.guild.member(user);
 
         this._roles.forEach(role => {
@@ -41,6 +41,14 @@ class ReactionRole {
                 console.error("Failed to remove role from user", role, user.tag, e);
             });
         });
+    }
+
+    private _checkEvent(reaction: MessageReaction, user: User): boolean {
+        if(!user || user.bot || !reaction.message.guild) return false;
+        if(this._message.id !== reaction.message.id) return false;
+        if(this._emoji.id && (!reaction.emoji.id || this._emoji.id !== reaction.emoji.id)) return false;
+        else if(this._emoji.name !== reaction.emoji.name) return false;
+        return true;
     }
 }
 
