@@ -5,8 +5,11 @@ import {CommandChannelTypes} from "../types";
 class ChannelHandler {
     private readonly _channel: CommandChannelTypes;
 
+    public sentMessage: boolean;
+
     constructor(channel: CommandChannelTypes) {
         this._channel = channel;
+        this.sentMessage = false;
     }
 
     private async _sendEmbed(embed: MessageEmbed){
@@ -19,7 +22,9 @@ class ChannelHandler {
             .setAuthor("Bergflix")
             .setThumbnail(config.icons.logo)
             .setDescription(message)
-        ).catch(e => {
+        ).then(() => {
+            this.sentMessage = true;
+        }).catch(e => {
             console.log("Error [Send Message]", e)
         });
     }

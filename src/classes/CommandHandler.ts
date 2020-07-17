@@ -26,6 +26,7 @@ class CommandHandler {
         let guildConfig: GuildConfig;
         let prefix = "!";
         let member: GuildMember;
+
         if (guild) {
             guildConfig = ConfigHandler.getConfig(guild.id);
             prefix = guildConfig.Prefix;
@@ -35,34 +36,32 @@ class CommandHandler {
         let args = msg.split(" ");
         let cmd = args.splice(0, 1)[0];
 
-        if (msg.startsWith(prefix)) {
-            cmd = cmd.replace(prefix, "");
-        } else if(msg.startsWith(`<@!${BOT.Client.user.id}>`)) {
-            cmd = cmd.replace(`<@!${BOT.Client.user.id}>`, "");
-        } else if(channel.type !== "dm") {
-            return;
-        }
+        if (msg.startsWith(prefix)) cmd = cmd.replace(prefix, "");
+        else if(msg.startsWith(`<@!${BOT.Client.user.id}>`)) cmd = cmd.replace(`<@!${BOT.Client.user.id}>`, "");
+        else if(channel.type !== "dm") return;
 
-        while (cmd === "") {
-            cmd = args.splice(0, 1)[0];
-        }
+        while(cmd === "") cmd = args.splice(0, 1)[0];
 
         // Bundle command data
         let data: CommandData = {user, args, channel: {cnl: channel, handler: cnlHandler}, guild, member};
         let command: Command;
+
         // Search and execute command
         if ((command = this._commands.get(cmd))) {
-            if (member && command.permission && !member.hasPermission(command.permission)) return;
+            if (data.member && command.permission && !data.member.hasPermission(command.permission)) return;
             command.exec(data).catch(e => console.error("Error Command Execution", e));
 
         // Else: Unknown Command
-        } else {
-            this._commands.each(command => {
-                if(!command.unknown) return;
-                if(member && command.permission && !member.hasPermission(command.permission)) return;
-                command.exec(data).catch(e => console.error("Error Command Execution", e));
-            });
-        }
+        } else this._execUnknown(data);
+        !data.channel.handler.sentMessage && this._execUnknown(data);
+    }
+
+    private _execUnknown(data: CommandData) {
+        this._commands.each(command => {
+            if(!command.unknown) return;
+            if(data.member && command.permission && !data.member.hasPermission(command.permission)) return;
+            command.exec(data).catch(e => console.error("Error Command Execution", e));
+        });
     }
 
     public init(){
