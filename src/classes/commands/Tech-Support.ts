@@ -4,7 +4,7 @@ import * as config from "../../config.json";
 import ConfigHandler from "../ConfigHandler";
 import BOT from "../BOT";
 
-class Help extends Command {
+class TechSupport extends Command {
     constructor() {
         super("tech-support", {
             description: "wilder befehl.",
