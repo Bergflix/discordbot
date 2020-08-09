@@ -6,7 +6,7 @@ import BOT from "../BOT";
 
 class TechSupport extends Command {
     constructor() {
-        super("tech-support", {
+        super("TechSupport", {
             description: "wilder befehl.",
             unknown: false,
             hidden: true
@@ -29,4 +29,4 @@ class TechSupport extends Command {
     }
 }
 
-export default new Help();
+export default new TechSupport();
