@@ -1,8 +1,4 @@
 import Command from "../Command";
-import CommandHandler from "../CommandHandler";
-import * as config from "../../config.json";
-import ConfigHandler from "../ConfigHandler";
-import BOT from "../BOT";
 
 class TechSupport extends Command {
     constructor() {
