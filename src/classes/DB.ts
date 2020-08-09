@@ -6,7 +6,12 @@ class DB {
     private readonly _db: any;
 
     constructor() {
-        this._db = new PouchDB("https://couchdb.bergflix.de/bot");
+        this._db = new PouchDB("https://couchdb.bergflix.de/bot", {
+            auth: {
+                username: process.env.DB_USER,
+                password: process.env.DB_PASS
+            }
+        });
     }
 
     public get Connection(){
