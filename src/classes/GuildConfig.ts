@@ -10,7 +10,7 @@ class GuildConfig {
         this._guild = guild;
         this._prefix = config.command.prefix;
 
-        this.reactionRole = new ReactionRoleHandler(guild);
+        this.reactionRole = new ReactionRoleHandler(guild, config.reactionroles);
     }
 
     public get Prefix(){

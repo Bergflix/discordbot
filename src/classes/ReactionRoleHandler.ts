@@ -1,24 +1,22 @@
 import {Collection} from "discord.js";
 import ReactionRole from "./ReactionRole";
-import DB from "./DB";
 import BOT from "./BOT";
 
 class ReactionRoleHandler {
     private readonly _guild: string;
     private readonly _reactionRoles: Collection<string, Array<ReactionRole>>;
+    private readonly _rawRules: Object;
 
-    constructor(guild: string) {
+    constructor(guild: string, rawRules: Object) {
         this._guild = guild;
         this._reactionRoles = new Collection<string, Array<ReactionRole>>();
+        this._rawRules = rawRules;
 
         this._loadRules().catch(e => console.error("Failed to load ReactionRoles", e));
     }
 
     private async _loadRules(){
-        let data = await DB.Connection.find({selector: {type: "reactionroles", guild: this._guild}});
-        // Check if data is available and get the rules
-        if(!data.docs[0] || !data.docs[0].rules) return;
-        let rules = data.docs[0].rules;
+        let rules = this._rawRules;
 
         // Fetch all channels
         for (let channelId in rules) {
