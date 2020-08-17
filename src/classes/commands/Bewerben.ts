@@ -13,4 +13,4 @@ class Bewerben extends Command {
     }
 }
 
-export default new Bewerben()
+//export default new Bewerben();
