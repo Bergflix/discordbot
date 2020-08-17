@@ -3,7 +3,8 @@ import Command from "../Command";
 class Bewerben extends Command {
     constructor() {
         super("bewerben", {
-            description: "Sende eine Bewerbung an uns :)"
+            description: "Sende eine Bewerbung an uns :)",
+            hidden: true
         });
     }
 
@@ -13,4 +14,4 @@ class Bewerben extends Command {
     }
 }
 
-//export default new Bewerben();
+export default new Bewerben();
