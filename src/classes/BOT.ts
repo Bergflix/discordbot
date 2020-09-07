@@ -12,8 +12,8 @@ class BOT {
             presence: {
                 status,
                 activity: {
-                    name: "Bergflix.de",
-                    type: "WATCHING",
+                    name: "on Bergflix.de",
+                    type: "STREAMING",
                     url: "https://bergflix.de"
                 }
             }
