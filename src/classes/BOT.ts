@@ -13,6 +13,7 @@ class BOT {
                 status,
                 activity: {
                     name: process.env.ACTIVITY_NAME || "Bergflix.de",
+                    // @ts-ignore
                     type: process.env.ACTIVITY_TYPE || "STREAMING",
                     url: "https://bergflix.de"
                 }
