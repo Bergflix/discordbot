@@ -12,8 +12,8 @@ class BOT {
             presence: {
                 status,
                 activity: {
-                    name: "on Bergflix.de",
-                    type: "STREAMING",
+                    name: process.env.ACTIVITY_NAME || "Bergflix.de",
+                    type: process.env.ACTIVITY_TYPE || "STREAMING",
                     url: "https://bergflix.de"
                 }
             }
