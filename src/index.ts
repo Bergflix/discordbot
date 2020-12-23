@@ -10,7 +10,7 @@ BOT.init("online").login(process.env.TOKEN).then(() => {
     // Load singletons and handlers
     Log.init().then(() => Log.sendInfo("Der Bergflix Bot wurde gestartet", "Neustart")).catch(console.error);
     ConfigHandler.init();
-    CommandHandler.init().then(() => console.log("commands loaded")).catch(console.error);
+    CommandHandler.init().then(() => console.log("Commands loaded")).catch(console.error);
 
     console.log("Bot is ready");
 }).catch(err => {

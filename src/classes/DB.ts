@@ -6,7 +6,7 @@ class DB {
     private readonly _db: any;
 
     constructor() {
-        this._db = new PouchDB("http://localhost:5984/bot", {
+        this._db = new PouchDB(process.env.DB_PATH, {
             auth: {
                 username: process.env.DB_USER,
                 password: process.env.DB_PASS

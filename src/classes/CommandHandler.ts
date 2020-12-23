@@ -76,7 +76,7 @@ class CommandHandler {
                     this.addCommand(cmd.default);
                 }).catch(reject);
             });
-            resolve();
+            resolve(null);
         });
     }
 

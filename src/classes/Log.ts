@@ -14,7 +14,7 @@ class Log {
             BOT.Client.channels.fetch(config.logChannel).then(channel => {
                 // @ts-ignore
                 this._channelHandler = new ChannelHandler(channel);
-                resolve();
+                resolve(null);
             }).catch(e => reject(e));
         });
     }
