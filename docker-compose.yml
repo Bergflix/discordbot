@@ -3,4 +3,4 @@ services:
   bergflix:
     build: .
     env_file:
-      - .env.prod
+      - '.env.prod'
